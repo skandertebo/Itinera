@@ -1,35 +1,17 @@
 "use client";
 
 import { api } from "@/trpc/react";
-import Image from "next/image";
-import Link from "next/link";
+import type { Hotel } from "@/types";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-
-type Hotel = {
-  id: string;
-  hotel_name: string;
-  hotel_rating: string | null;
-  city_name: string;
-  country_name: string;
-  description: string | null;
-  hotel_facilities: string | null;
-  hotel_website_url: string | null;
-};
-
-type HotelsResponse = {
-  hotels: Hotel[];
-  total: number;
-  totalPages: number;
-  currentPage: number;
-};
+import { HotelCard } from "./HotelCard";
 
 export function HotelList() {
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const hotelsPerPage = 6;
 
-  const { data, isLoading } = api.hotels.getHotels.useQuery<HotelsResponse>({
+  const { data, isLoading } = api.hotels.getHotels.useQuery({
     country: searchParams.get("country") ?? undefined,
     city: searchParams.get("city") ?? undefined,
     rating: searchParams.get("rating") ?? undefined,
@@ -62,58 +44,7 @@ export function HotelList() {
       {/* Hotels Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {data.hotels.map((hotel: Hotel) => (
-          <Link
-            key={hotel.id}
-            href={`/hotels/${hotel.id}`}
-            className="group overflow-hidden rounded-lg bg-white shadow-sm transition-all hover:shadow-md"
-          >
-            <div className="relative h-48 w-full">
-              <Image
-                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                alt={hotel.hotel_name}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            </div>
-            <div className="p-4">
-              <div className="mb-2 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600">
-                  {hotel.hotel_name}
-                </h3>
-                {hotel.hotel_rating && (
-                  <span className="rounded-full bg-yellow-100 px-2.5 py-0.5 text-sm font-medium text-yellow-800">
-                    {hotel.hotel_rating}
-                  </span>
-                )}
-              </div>
-              <p className="mb-2 text-sm text-gray-600">
-                {hotel.city_name}, {hotel.country_name}
-              </p>
-              {hotel.description && (
-                <p
-                  className="mb-4 line-clamp-2 text-sm text-gray-500"
-                  dangerouslySetInnerHTML={{ __html: hotel.description }}
-                />
-              )}
-              <div className="flex items-center justify-between">
-                {hotel.hotel_facilities && (
-                  <div className="flex flex-wrap gap-1">
-                    {hotel.hotel_facilities.split(",").slice(0, 3).map((facility: string, index: number) => (
-                      <span
-                        key={index}
-                        className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-600"
-                      >
-                        {facility.trim()}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-500">
-                  View Details →
-                </span>
-              </div>
-            </div>
-          </Link>
+          <HotelCard key={hotel.id} hotel={hotel} />
         ))}
       </div>
 
