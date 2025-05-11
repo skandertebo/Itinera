@@ -1,0 +1,81 @@
+@startuml Database Architecture
+
+!define table(x) class x << (T,#FFAAAA) >>
+!define primary_key(x) <u>x</u>
+!define foreign_key(x) #x#
+
+' Styling
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+
+' Existing Tables
+table(hotels) {
+    primary_key(id): UUID
+    country_code: VARCHAR(10)
+    country_name: VARCHAR(100)
+    city_code: VARCHAR(10)
+    city_name: VARCHAR(100)
+    hotel_code: VARCHAR(100)
+    hotel_name: VARCHAR(200)
+    hotel_rating: VARCHAR(50)
+    address: TEXT
+    attractions: TEXT
+    description: TEXT
+    fax_number: VARCHAR(200)
+    hotel_facilities: TEXT
+    map_position: VARCHAR(100)
+    phone_number: VARCHAR(100)
+    pin_code: VARCHAR(30)
+    hotel_website_url: VARCHAR(255)
+    embedding: VECTOR
+    metadata: JSONB
+}
+
+table(User) {
+    primary_key(id): String
+    name: String
+    email: String
+    emailVerified: DateTime
+    image: String
+    country: String
+}
+
+' Proposed New Tables
+table(Conversation) {
+    primary_key(id): UUID
+    foreign_key(userId): String
+    foreign_key(selectedHotelId): UUID
+    title: String
+    created_at: DateTime
+    updated_at: DateTime
+    status: String
+    metadata: JSONB
+}
+
+table(Message) {
+    primary_key(id): UUID
+    foreign_key(conversationId): UUID
+    content: TEXT
+    created_at: DateTime
+    role: String
+    metadata: JSONB
+}
+
+table(UserFavoriteHotels) {
+    primary_key(id): UUID
+    foreign_key(userId): String
+    foreign_key(hotelId): UUID
+    created_at: DateTime
+}
+
+' Relationships
+User "1" -- "0..*" Conversation
+Conversation "1" -- "0..*" Message
+Conversation "0..1" -- "1" hotels : selectedHotel
+User "1" -- "0..*" UserFavoriteHotels
+hotels "1" -- "0..*" UserFavoriteHotels
+
+@enduml 

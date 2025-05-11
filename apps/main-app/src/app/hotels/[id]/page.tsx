@@ -1,14 +1,48 @@
-import { api } from "@/trpc/server";
+"use client";
+
+import { api } from "@/trpc/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 
-export default async function HotelPage({ params }: { params: { id: string } }) {
-  const hotel = await api.hotels.getHotelById(params.id);
+export default function HotelPage({ params }: { params: { id: string } }) {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  const { data: hotel, isLoading: isLoadingHotel } = api.hotels.getHotelById.useQuery(params.id);
+  const { data: isFavorite, isLoading: isLoadingFavorite, refetch } = api.hotels.isFavorite.useQuery(
+    { hotelId: params.id },
+    { enabled: !!session },
+  );
+
+  const toggleFavorite = api.hotels.toggleFavorite.useMutation({
+    onSuccess: () => {
+      void refetch();
+    },
+  });
+
+  const handleFavoriteClick = () => {
+    if (!session) {
+      router.push("/api/auth/signin");
+      return;
+    }
+    toggleFavorite.mutate({ hotelId: params.id });
+  };
+
+  if (isLoadingHotel) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
   if (!hotel) {
     notFound();
   }
+
+  const isButtonLoading = isLoadingFavorite || toggleFavorite.isPending;
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -41,11 +75,32 @@ export default async function HotelPage({ params }: { params: { id: string } }) 
                 {hotel.city_name}, {hotel.country_name}
               </p>
             </div>
-            {hotel.hotel_rating && (
-              <div className="rounded-full bg-yellow-100 px-4 py-2">
-                <span className="text-lg font-semibold text-yellow-800">{hotel.hotel_rating}</span>
-              </div>
-            )}
+            <div className="flex items-center gap-4">
+              {hotel.hotel_rating && (
+                <div className="rounded-full bg-yellow-100 px-4 py-2">
+                  <span className="text-lg font-semibold text-yellow-800">{hotel.hotel_rating}</span>
+                </div>
+              )}
+              <button
+                onClick={handleFavoriteClick}
+                disabled={isButtonLoading}
+                className={`rounded-full p-2 transition-colors ${
+                  isFavorite
+                    ? "bg-red-500 text-white hover:bg-red-600"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                } ${isButtonLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+                title={session ? (isFavorite ? "Remove from favorites" : "Add to favorites") : "Sign in to add favorites"}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="h-6 w-6"
+                >
+                  <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
 

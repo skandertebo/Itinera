@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 import { z } from "zod";
 
 const hotelFiltersSchema = z.object({
@@ -50,5 +50,64 @@ export const hotelsRouter = createTRPCRouter({
       return ctx.db.hotels.findUnique({
         where: { id: input },
       });
+    }),
+
+  getFavorites: protectedProcedure.query(async ({ ctx }) => {
+    const favorites = await ctx.db.userFavoriteHotels.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+      include: {
+        hotel: true,
+      },
+    });
+
+    return favorites.map((favorite) => favorite.hotel);
+  }),
+
+  toggleFavorite: protectedProcedure
+    .input(z.object({ hotelId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const existingFavorite = await ctx.db.userFavoriteHotels.findUnique({
+        where: {
+          userId_hotelId: {
+            userId: ctx.session.user.id,
+            hotelId: input.hotelId,
+          },
+        },
+      });
+
+      if (existingFavorite) {
+        await ctx.db.userFavoriteHotels.delete({
+          where: {
+            id: existingFavorite.id,
+          },
+        });
+        return { isFavorite: false };
+      }
+
+      await ctx.db.userFavoriteHotels.create({
+        data: {
+          userId: ctx.session.user.id,
+          hotelId: input.hotelId,
+        },
+      });
+
+      return { isFavorite: true };
+    }),
+
+  isFavorite: protectedProcedure
+    .input(z.object({ hotelId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const favorite = await ctx.db.userFavoriteHotels.findUnique({
+        where: {
+          userId_hotelId: {
+            userId: ctx.session.user.id,
+            hotelId: input.hotelId,
+          },
+        },
+      });
+
+      return !!favorite;
     }),
 }); 

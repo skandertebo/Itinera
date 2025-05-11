@@ -1,30 +1,25 @@
 "use client";
 
+import { DEFAULT_HOTEL_IMAGE } from "@/constants";
 import { api } from "@/trpc/react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { HotelDescription } from "./HotelDescription";
-import { HotelFacilities } from "./HotelFacilities";
-import { HotelHeader } from "./HotelHeader";
-import { HotelImage } from "./HotelImage";
-import { HotelLocation } from "./HotelLocation";
 
-interface Hotel {
-  id: string;
-  hotel_name: string;
-  hotel_rating: string | null;
-  description: string | null;
-  hotel_facilities: string | null;
-  city_name: string;
-  country_name: string;
+interface Props {
+  hotel: {
+    id: string;
+    hotel_name: string;
+    hotel_rating: string | null;
+    description: string | null;
+    hotel_facilities: string | null;
+    city_name: string;
+    country_name: string;
+  };
 }
 
-interface HotelCardProps {
-  hotel: Hotel;
-}
-
-export function HotelCard({ hotel }: HotelCardProps) {
+export function FavoriteHotelCard({ hotel }: Props) {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -35,6 +30,7 @@ export function HotelCard({ hotel }: HotelCardProps) {
 
   const toggleFavorite = api.hotels.toggleFavorite.useMutation({
     onSuccess: () => {
+      // Optimistically update the UI
       void refetch();
     },
   });
@@ -54,10 +50,15 @@ export function HotelCard({ hotel }: HotelCardProps) {
   return (
     <Link
       href={`/hotels/${hotel.id}`}
-      className="group relative overflow-hidden rounded-lg bg-white shadow-sm transition-all hover:shadow-md"
+      className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all hover:shadow-lg"
     >
-      <div className="relative">
-        <HotelImage hotelName={hotel.hotel_name} />
+      <div className="relative h-48 w-full">
+        <Image
+          src={DEFAULT_HOTEL_IMAGE}
+          alt={hotel.hotel_name}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
         <button
           onClick={handleFavoriteClick}
           disabled={isButtonLoading}
@@ -79,15 +80,37 @@ export function HotelCard({ hotel }: HotelCardProps) {
         </button>
       </div>
       <div className="p-4">
-        <HotelHeader hotelName={hotel.hotel_name} rating={hotel.hotel_rating} />
-        <HotelLocation cityName={hotel.city_name} countryName={hotel.country_name} />
-        <HotelDescription description={hotel.description} />
-        <div className="flex items-center justify-between">
-          <HotelFacilities facilities={hotel.hotel_facilities} />
-          <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-500">
-            View Details →
-          </span>
+        <div className="mb-2 flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-900">{hotel.hotel_name}</h3>
+          {hotel.hotel_rating && (
+            <span className="rounded bg-indigo-100 px-2 py-1 text-sm font-medium text-indigo-800">
+              {hotel.hotel_rating} ★
+            </span>
+          )}
         </div>
+        <p className="mb-2 text-sm text-gray-600">
+          {hotel.city_name}, {hotel.country_name}
+        </p>
+        {hotel.description && (
+          <p className="mb-2 line-clamp-2 text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: hotel.description }} />
+        )}
+        {hotel.hotel_facilities && (
+          <div className="mt-2 flex flex-wrap gap-1">
+            {hotel.hotel_facilities.split(",").slice(0, 3).map((facility, index) => (
+              <span
+                key={index}
+                className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-600"
+              >
+                {facility.trim()}
+              </span>
+            ))}
+            {hotel.hotel_facilities.split(",").length > 3 && (
+              <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-600">
+                +{hotel.hotel_facilities.split(",").length - 3} more
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </Link>
   );

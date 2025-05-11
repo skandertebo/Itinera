@@ -15,6 +15,7 @@ export function NavTop() {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Hotels", href: "/hotels" },
+    { name: "Favorites", href: "/favorites" },
   ];
 
   return (

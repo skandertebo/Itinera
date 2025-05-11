@@ -1,10 +1,8 @@
-import { auth } from "@/server/auth";
 import { Suspense } from "react";
 import { HotelFilters } from "./_components/HotelFilters";
 import { HotelList } from "./_components/HotelList";
 
 export default async function HotelsPage() {
-  const session = await auth();
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
