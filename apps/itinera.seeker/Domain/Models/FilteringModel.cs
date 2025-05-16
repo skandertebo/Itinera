@@ -16,6 +16,9 @@ namespace Domain.Models
         public Travelers Travelers { get; set; }
         public Accommodation Accommodation { get; set; }
         public Budget Budget { get; set; }
+        public string UserCurrency { get; set; }
+        public string UserCountry { get; set; }
+        public string UserLanguage { get; set; }
     }
 
     public record Destination
