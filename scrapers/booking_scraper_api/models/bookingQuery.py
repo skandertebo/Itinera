@@ -5,6 +5,8 @@ class BookingQuery:
     search_string: str
     checkin_date: str
     checkout_date: str
+    min_budget: int
+    max_budget: int
     number_of_adults: int = 1
     number_of_children: int = 0
     number_of_rooms: int = 1
