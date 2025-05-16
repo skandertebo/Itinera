@@ -99,7 +99,17 @@ class HotelDetailsThreadScraper(threading.Thread):
             surroundings[category_name] = category_items
 
         # Extract detailed ratings
-        review_group = soup.find(role="group", attrs={"aria-label": "Review categories"})
+        def has_first_child_testid(tag):
+            # get a list of children, skip over strings/newlines
+            children = [c for c in tag.contents if getattr(c, 'attrs', None) is not None]
+            if not children:
+                return False
+            first = children[0]
+            return first.attrs.get("data-testid") == "ReviewSubscoresDesktop"
+
+        # find the parent tags (e.g. div) for which the first element-child matches
+        parents = soup.find_all(has_first_child_testid)
+        review_group = parents[0]
         subscore_divs = review_group.find_all(attrs={"data-testid": "review-subscore"}) if review_group else []
         detailed_ratings = {}
         for subscore in subscore_divs:
@@ -131,7 +141,7 @@ class HotelDetailsThreadScraper(threading.Thread):
                 
                 pricing.append({"room_type": room_type, "price": price})
         else:
-            pricing = "Pricing table not found"
+            pricing = []
         
         print(f"✅ Done Processing {self.name}");
         return {
