@@ -10,8 +10,8 @@ namespace Domain.Interfaces
     /// Parses the different types of structured data Itinera Seekers supports 
     /// into a structured common result.
     ///</summary>
-    public interface IParser
+    public interface IParser<T> where T : class
     {
-        List<HotelResult> Parse<T>(T rawData) where T : class;
+        List<HotelResult> Parse(T rawData);
     }
 }

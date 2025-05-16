@@ -9,8 +9,10 @@ namespace Domain.Interfaces
     ///<summary>
     /// Processes a given query by executing it and returning structured data.
     ///</summary>
-    public interface IQueryProcessor
+    public interface IQueryProcessor<TQuery, TResult>
+        where TQuery : BaseQuery
+        where TResult : class
     {
-        Task<T> ProcessQueryAsync<T, W>(W query) where T : class where W : BaseQuery;
+        Task<TResult> ProcessQueryAsync(TQuery query);
     }
 }

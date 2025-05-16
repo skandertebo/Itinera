@@ -9,6 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IDataSource
     {
-        Task<List<HotelResult>> QueryAsync<T>(T query) where T : BaseQuery;
+        Task<List<HotelResult>> QueryAsync(FilteringModel query);
     }
 }
