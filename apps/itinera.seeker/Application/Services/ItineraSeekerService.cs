@@ -7,6 +7,9 @@ using Domain.Models;
 
 namespace Application.Services
 {
+    /// <summary>
+    /// The orchestrator that runs all the data sources and returns their combined results.
+    /// </summary>
     public class ItineraSeekerService
     {
         private readonly List<IDataSource> _dataSources;
@@ -18,6 +21,11 @@ namespace Application.Services
             _aggregator = aggregator;
         }
 
+        /// <summary>
+        /// Runs QueryAsync for all the data sources in parallel.
+        /// </summary>
+        /// <param name="filteringModel"></param>
+        /// <returns>The aggregated results after </returns>
         public async Task<List<HotelResult>> ExecuteQueryAsync(FilteringModel filteringModel)
         {
             // Execute all data sources in parallel
