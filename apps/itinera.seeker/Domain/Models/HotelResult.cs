@@ -10,6 +10,11 @@ namespace Domain.Models
     ///</summary>
     public class HotelResult
     {
-
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public string Rating { get; set; }
+        public string Description { get; set; }
+        public string ExtraDataStr { get; set; }        
+        public string PricingStr { get; set; }
     }
 }
