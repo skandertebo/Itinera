@@ -1,0 +1,5 @@
+itinera.agentic-env
+.vscode
+.env
+*.pyc
+__pycache__
