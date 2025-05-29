@@ -16,11 +16,12 @@ namespace Domain.Models.Queries
 
         public BookingQuery(FilteringModel filteringModel)
         {
+            var durationInDays = (filteringModel.CheckOut - filteringModel.CheckIn).Days;
             SearchString = $"{filteringModel.Destination.City}, {filteringModel.Destination.Country}";
             CheckinDate = filteringModel.CheckIn.ToString("YYYY-MM-DD");
             CheckoutDate = filteringModel.CheckOut.ToString("YYYY-MM-DD");
-            MaxBudget = (int)filteringModel.Budget.Max;
-            MinBudget = (int)filteringModel.Budget.Min;
+            MaxBudget = (int)filteringModel.Budget.Max / durationInDays;
+            MinBudget = (int)filteringModel.Budget.Min / durationInDays;
             NumberOfAdults = filteringModel.Travelers.Adults;
             NumberOfChildren = filteringModel.Travelers.Children;
             NumberOfRooms = filteringModel.Accommodation.Rooms;
