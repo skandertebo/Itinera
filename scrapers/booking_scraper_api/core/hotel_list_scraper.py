@@ -19,9 +19,11 @@ class HotelsListScraper:
     no_rooms: int = 1,
     lang: str = "en-gb",
     currency: str = "GBP",
+    min_budget: int = None,
+    max_budget: int = None
     ):
         self.driver = webdriver.Chrome()
-        self.url = generate_booking_url(ss, checkin, checkout, group_adults, group_children, no_rooms, lang, currency)
+        self.url = generate_booking_url(ss, checkin, checkout, group_adults, group_children, no_rooms, lang, currency, min_budget, max_budget)
 
     def scroll_to_bottom(self, pause_time=1):
         last_height = self.driver.execute_script("return document.body.scrollHeight")
@@ -94,7 +96,9 @@ if __name__ == "__main__":
           group_children=0,
           no_rooms=1,
           lang="en-gb",
-          currency="GBP");
+          currency="GBP",
+          min_budget=10,
+          max_budget=200);
         hotels_list = scraper.get_hotel_info()
         save_file(hotels_list, 'testData/hotels_list/test_data.json')
     except Exception as e:

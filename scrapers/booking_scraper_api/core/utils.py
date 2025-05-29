@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from urllib.parse import urlencode, urlunparse
+from urllib.parse import urlencode, urlunparse, quote
 
 from flask import json
 
@@ -12,7 +12,9 @@ def generate_booking_url(
     group_children: int = 0,
     no_rooms: int = 1,
     lang: str = "en-gb",
-    currency: str = "GBP"
+    currency: str = "GBP",
+    min_budget: int = None,
+    max_budget: int = None
 ) -> str:
     """
     Generate a Booking.com search URL with dynamic query parameters.
@@ -27,7 +29,6 @@ def generate_booking_url(
     :param currency: Currency code (default "GBP")
     :return: Fully assembled Booking.com URL as a string
     """
-    base = "https://www.booking.com/searchresults.html"
 
     # Core query parameters
     params = {
@@ -40,6 +41,13 @@ def generate_booking_url(
         "lang": lang,
         "selected_currency": currency,
     }
+    
+    # Add budget filter if both min and max are provided
+    # Note: the budget here is per night
+    if min_budget is not None and max_budget is not None:
+        # Format: price=EUR-50-210-1 and needs URL encoding
+        price_filter = f"price={currency}-{min_budget}-{max_budget}-1"
+        params["nflt"] = quote(price_filter, safe="=")
 
     # Build and return full URL
     return urlunparse(("https", "www.booking.com", "/searchresults.html", "", urlencode(params), ""))
