@@ -1,3 +1,4 @@
+import pickle
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -82,6 +83,8 @@ class HotelsListScraper:
             except Exception:
                 continue
 
+        # Save cookies
+        pickle.dump(self.driver.get_cookies(), open("./temp/cookies.pkl", "wb"))
         self.driver.quit()
 
         return hotels_list

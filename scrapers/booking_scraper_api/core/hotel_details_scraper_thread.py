@@ -1,3 +1,4 @@
+import pickle
 import threading
 from bs4 import BeautifulSoup
 import requests
@@ -34,36 +35,9 @@ class HotelDetailsThreadScraper(threading.Thread):
             'upgrade-insecure-requests': '1',
             'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36'
         }
-
-        # Define the cookies from the curl command
-        cookies = {
-            'pcm_consent': f'analytical%3Dtrue%26countryCode%3D{self.user_country}%26consentId%3D6b4c3162-cd3b-4909-84b3-a364dfb02f74%26consentedAt%3D2025-03-10T23%3A17%3A37.278Z%26expiresAt%3D2025-09-06T23%3A17%3A37.278Z%26implicit%3Dtrue%26marketing%3Dtrue%26regionCode%3D11%26regulation%3Dnone%26legacyRegulation%3Dnone',
-            'pcm_personalization_disabled': '0',
-            'cors_js': '1',
-            'bkng_sso_session': 'e30',
-            'bkng_sso_ses': 'e30',
-            '_gcl_au': '1.1.436207334.1741648661',
-            'FPID': 'FPID2.2.PibCXG13Qbhzzq2%2B4e7szSg%2Bs8P3Z%2Fp2I9r2Nn3ggcU%3D.1741648660',
-            'FPAU': '1.1.436207334.1741648661',
-            '_yjsu_yjad': '1741648662.90f86f40-ddc4-494a-afbe-5ecb6e38055e',
-            'bkng_sso_auth': 'CAIQ0+WGHxpm6ygrJxiTLDgmWemsWtURePhUFsGUNqan4PW61B0w6clv2dRZ2JNwB2oq0ccC+5i3HNL8p5nh0Qs3VdtkFU0ptfFWpSgzy8fKVvF8ogB7dptgh96ho6h/ZiPZuaFoTkA5aL3s2dFQ',
-            'BJS': '-',
-            '_gid': 'GA1.2.492057804.1746957152',
-            'bkng_prue': '1',
-            'FPLC': 'Fh2JaumonoS7FWSis2J93Yh%2FNJbza3frXLqX6kjSXbcx8UT7BddKxlHzcDZPxbbMj7za46yMfWw7k256IymQha1CKoHE89VNjjXI4XN2qfl8rk8SqfR36cUMYzUjSg%3D%3D',
-            'b': '%7B%22countLang%22%3A1%7D',
-            'OptanonConsent': 'implicitConsentCountry=nonGDPR&implicitConsentDate=1741648660222&isGpcEnabled=0&datestamp=Sun+May+11+2025+12%3A51%3A03+GMT%2B0100+(Central+European+Standard+Time)&version=202501.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=e5372b17-c965-4dd5-81da-a064c361aa86&interactionCount=1&isAnonUser=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0004%3A1&AwaitingReconsent=false',
-            '_gat': '1',
-            '_ga': 'GA1.1.1716958605.1741648660',
-            'cgumid': 'GcNC_19mWENrV25RWUprdWlnSFltSSUyRiUyRlVjUENBdzlBMFQwR3BiZHglMkJrTk9wSlRrJTNE',
-            'cto_bundle': 'mtYYh18yYkNIakl3cjNraVVsYm9BUXFuWkkzT1RidGRQMzdvWEVCMGc1Mk16M2dpbEpyaVBCMmZYNERMdVJ3Z3lWMEdVVHpOZlN3WmFQbXhmc1pvclZLY2FRNXAlMkJlSDNvWXl1WFZlVkE2T3EzT0JtOXFGS1dXTWpZU09MUUVSQThnWXFaJTJGekM5RmVRciUyQjdzSFQyZkhXb1BvTVElM0QlM0Q',
-            '_ga_A12345': 'GS2.1.s1746964267$o5$g1$t1746964275$j0$l0$h725978192',
-            '_uetsid': 'aa001be02e4d11f0847a3fa404710016',
-            '_uetvid': 'de1deb50fe0511ef91591f1238c20085',
-            'bkng': '11UmFuZG9tSVYkc2RlIyh9Yaa29%2F3xUOLbwcLxQQ4VaCrizqDMgpeZKfH1fVcT7LWqQC0aFrc1kxjboEfQtNFLnTQP0N3U5UoGgDL5jC7jnt3sx0K8Epg8fjeUOFm5IdvbUL0pKpCazuF0Mxls%2F9SUrcCOUl11b2mMU27uo8vLvPIPBX5%2BLXu4Y9dQ5MbYWo0ylj242WpPEcE%3D',
-            'aws-waf-token': '8075d2b4-b074-4bd2-8cdf-b2881dea74e4:DgoAnwZTApu7AAAA:UcWgmhtebrfcN64C0TyKzVW6lvmQXeN1M/ZdplDfPaLAH3nMxqTVuXGcyqRHV1jBjKMercOvXOhb1ccEnYeGKpUp2vKMTXEJ0RMqKbwYl/sG6FUpJREboThzhbYs+goPgCAD1tmIg++c7CmV0gcSxqmW1qHo7vHJUbU3Zi2fRel6ARzQBL6yeSRmzsMp279gZCSwSb+scwpNLOBZm7Xidgn7FQ0HZzXJg67Q2MpaWiQMedn7cJ3tuCHhLcuQY2c9adU=',
-            'lastSeen': '0'
-        }
+        # load cookies
+        selenium_cookies = pickle.load(open("temp/cookies.pkl", "rb"))
+        cookies = {cookie['name']: cookie['value'] for cookie in selenium_cookies}
         response = requests.get(self.url, headers=headers, cookies=cookies)
         html_content = response.text
 
