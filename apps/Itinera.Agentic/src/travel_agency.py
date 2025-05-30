@@ -3,12 +3,12 @@ from langgraph_supervisor import create_supervisor
 from langchain.callbacks import StdOutCallbackHandler
 from langchain.schema import HumanMessage, AIMessage
 
-from .agents.analyst_agent import create_analyst_agent
-from .agents.explorer_agent import create_explorer_agent
-from .agents.qa_agent import create_qa_agent
-from .schema.prompts import DIRECTOR_AGENT_SYSTEM_PROMPT
+from agents.analyst_agent import create_analyst_agent
+from agents.explorer_agent import create_explorer_agent
+from agents.qa_agent import create_qa_agent
+from schema.prompts import DIRECTOR_AGENT_SYSTEM_PROMPT
 
-model = ChatOpenAI(model="gpt-4o", callbacks=[StdOutCallbackHandler()])
+model = ChatOpenAI(model="gpt-4o", callbacks=[StdOutCallbackHandler()], api_key=OPENAI_API_KEY)
 
 def create_travel_agency():
   # Create the supervisor workflow to manage the Engineering Manager agents

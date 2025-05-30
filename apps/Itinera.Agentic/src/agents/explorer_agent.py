@@ -2,50 +2,59 @@
 from typing import Dict, List
 from langgraph.prebuilt import create_react_agent
 from langchain.tools import tool
-from ..schema.prompts import EXPLORER_AGENT_SYSTEM_PROMPT
+from schema.prompts import EXPLORER_AGENT_SYSTEM_PROMPT
+from schema.classes import BookingResult, Pricing, TravelRequirements
+import requests
+
+def to_filtering_model(tr: TravelRequirements) -> dict:
+    return {
+        "destination": {
+            "city": tr.destination.city,
+            "country": tr.destination.country
+        },
+        "checkIn": tr.check_in.isoformat(),
+        "checkOut": tr.check_out.isoformat(),
+        "travelers": {
+            "adults": tr.travelers.adults,
+            "children": tr.travelers.children
+        },
+        "accommodation": {
+            "rooms": tr.accommodation.rooms,
+            "roomTypes": tr.accommodation.room_types
+        },
+        "budget": {
+            "min": tr.budget.min,
+            "max": tr.budget.max
+        },
+        "userCurrency": tr.user_currency,
+        "userCountry": tr.user_country,
+        "userLanguage": tr.user_language
+    }
 
 # Mock Tools for Explorer Agent
 @tool
-def search_accommodations(requirements: Dict) -> List[Dict]:
+def search_accommodations(requirements: TravelRequirements) -> List[Dict]:
     """
-    Search for accommodations based on travel requirements.
+    Search for accommodations based on travel requirements by calling the backend server.
     """
-    # In a real implementation, this would call an external API
-    # Mock data for demonstration
-    print(f"Calling search accomodations with requirements: {requirements}")
-    
-    num_nights = 3;
-    mock_results = [
-        {
-            "hotel_name": "3asba",
-            "hotel_rating": 4.5,
-            "price_per_night": 150.0,
-            "total_price": 150.0 * num_nights,
-            "location": f"Downtown Bali",
-            "amenities": ["WiFi", "Pool", "Restaurant", "Fitness Center"],
-            "available": True
-        },
-        {
-            "hotel_name": "Zeby",
-            "hotel_rating": 3.8,
-            "price_per_night": 95.0,
-            "total_price": 95.0 * num_nights,
-            "location": f"North Bali",
-            "amenities": ["WiFi", "Free Breakfast", "Parking"],
-            "available": True
-        },
-        {
-            "hotel_name": "L9a7ba",
-            "hotel_rating": 4.9,
-            "price_per_night": 275.0,
-            "total_price": 275.0 * num_nights,
-            "location": f"Beachfront, Bali",
-            "amenities": ["WiFi", "Pool", "Spa", "Restaurant", "Room Service", "Ocean View"],
-            "available": True
-        }
-    ]
-    
-    return mock_results
+
+    filtered_payload = to_filtering_model(requirements)
+    print(filtered_payload)
+
+    url = "http://localhost:5015/api/ItineraSeeker"
+    headers = {
+        "accept": "text/plain",
+        "Content-Type": "application/json"
+    }
+
+    try:
+        response = requests.post(url, json=filtered_payload, headers=headers)
+        response.raise_for_status()
+        print(response.json())
+        return response.json()  
+    except requests.RequestException as e:
+        print(f"Request failed: {e}")
+        return []
 
 # Analyst Agent
 def create_explorer_agent(llm):
