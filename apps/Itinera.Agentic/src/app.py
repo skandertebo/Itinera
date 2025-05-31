@@ -1,5 +1,4 @@
-from typing import Dict, List, Optional
-from pydantic import BaseModel, Field
+from typing import Dict
 from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI
@@ -7,50 +6,29 @@ from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain.tools import tool
 from langchain.memory import ConversationBufferMemory
+from schema.classes import TravelRequirements, BookingResult, Destination, Travelers, Accommodation, Budget
+from schema.prompts import CUSTOMER_FACING_AGENT_SYSTEM_PROMPT
 
-from .travel_agency import consult_travel_agency
+from travel_agency import consult_travel_agency
 
 # Load environment variables
 load_dotenv()
 
-# Models for structured data
-class TravelRequirements(BaseModel):
-    destination: Optional[str] = Field(None, description="Destination city, country, or region")
-    start_date: Optional[str] = Field(None, description="Start date of the trip (YYYY-MM-DD)")
-    end_date: Optional[str] = Field(None, description="End date of the trip (YYYY-MM-DD)")
-    budget: Optional[str] = Field(None, description="Budget for the trip")
-    num_travelers: Optional[int] = Field(None, description="Number of travelers")
-    accommodation_preferences: Optional[str] = Field(None, description="Preferences for accommodation")
-    activity_preferences: Optional[str] = Field(None, description="Preferred activities during the trip")
-    transportation_preferences: Optional[str] = Field(None, description="Preferred modes of transportation")
-
-class BookingResult(BaseModel):
-    hotel_name: str = Field(..., description="Name of the hotel")
-    hotel_rating: float = Field(..., description="Rating of the hotel (1-5)")
-    price_per_night: float = Field(..., description="Price per night in USD")
-    total_price: float = Field(..., description="Total price for the stay in USD")
-    location: str = Field(..., description="Location of the hotel")
-    amenities: List[str] = Field(..., description="List of amenities")
-    available: bool = Field(..., description="Whether the hotel is available for the requested dates")
 
 # Initialize LLM
-llm = ChatOpenAI(temperature=0.7, model="gpt-4o")
+llm = ChatOpenAI(temperature=0.7, model="gpt-4o", api_key=OPENAI_API_KEY)
 
 # Tools for Customer-Facing Agent
 @tool
-def extract_travel_requirements(conversation: str) -> Dict:
+
+def extract_travel_requirements(conversation: str) -> TravelRequirements:
     """
     Extract travel requirements from the conversation.
     """
     prompt = ChatPromptTemplate.from_messages([
-        ("system", """Extract travel requirements from the conversation. 
-        Return a JSON object with keys: destination, start_date, end_date, budget, num_travelers, 
-        accommodation_preferences, activity_preferences, transportation_preferences.
-        If information is not provided, set the value to null.
-        Important: Return only the raw JSON without any markdown formatting, code blocks, or additional text."""),
-        ("user", f"Conversation: {conversation}")
+        ("system", """Extract travel requirements from the conversation.\nYou are a helpful assistant that extracts structured data from natural language.\nGiven a user’s travel request, extract all relevant details and return a valid JSON object that matches the following schema.\nEnsure that all required fields are included and valid. Optional fields should only be included if they are mentioned.\n\n**Schema Fields**:\n- **destination.city** (str, required): City of the travel destination\n- **destination.country** (str, required): Country of the travel destination\n- **check_in** (date, required): Check-in date (format: YYYY-MM-DD)\n- **check_out** (date, required): Check-out date (format: YYYY-MM-DD)\n- **travelers.adults** (int, required, >= 1): Number of adult travelers\n- **travelers.children** (int, required, >= 0): Number of child travelers\n- **travelers.companions** (str, optional): Who the client is traveling with\n- **accommodation.rooms** (int, required, >= 1): Number of rooms required\n- **accommodation.room_types** (List[str], required): Preferred room types\n- **budget.min** (float, required, >= 0): Minimum budget in USD\n- **budget.max** (float, required, >= 0): Maximum budget in USD\n- **travel_purpose** (str, optional): Purpose of the trip (e.g., leisure, business)\n- **preferred_activities** (List[str], optional): Activities or interests\n- **travel_history** (str, optional): Client’s travel background\n- **preferred_climate** (str, optional): Desired climate or season\n- **special_requirements** (List[str], optional): Any specific needs\n- **user_language** (str, required): User's preferred language\n- **user_currency** (str, required): User's preferred currency\n- **user_country** (str, required): User's country\n\n**Instructions**:\n- Extract the fields from the provided user input.\n- Return only the JSON output in the exact structure.\n- Do not include any explanations or extra text.\n- Dates must be in YYYY-MM-DD format.\n- Omit optional fields if not mentioned in the input.\n\n**User Input**:\n{conversation}\n\n**Expected Output**:\nA JSON object matching the schema above, strictly formatted and including only mentioned optional fields.""")
     ])
-    
+
     response = llm.invoke(prompt.format_messages(conversation=conversation))
     
     # Clean up response content - remove markdown code blocks if present
@@ -62,22 +40,28 @@ def extract_travel_requirements(conversation: str) -> Dict:
         if json_match:
             content = json_match.group(1)
     
-    # Parse as JSON
+    # Parse as JSON and convert to TravelRequirements model
     import json
     try:
-        return json.loads(content)
-    except json.JSONDecodeError:
+        data = json.loads(content)
+        print(data)
+        return TravelRequirements(**data)
+    except (json.JSONDecodeError, ValueError):
         # Fallback to a default structure if parsing fails
-        return {
-            "destination": None,
-            "start_date": None,
-            "end_date": None,
-            "budget": None,
-            "num_travelers": None,
-            "accommodation_preferences": None,
-            "activity_preferences": None,
-            "transportation_preferences": None
-        }
+        return TravelRequirements(
+            destination=Destination(city=None, country=None),
+            check_in=None,
+            check_out=None,
+            travelers=Travelers(adults=None, children=None, companions=None),
+            accommodation=Accommodation(rooms=None, room_types=None),
+            budget=Budget(min=None, max=None),
+            travel_purpose=None,
+            preferred_activities=None,
+            travel_history=None,
+            preferred_climate=None,
+            special_requirements=None
+        )
+
 
 @tool
 def process_customer_request(customerRequestStr: str) -> str:
@@ -100,12 +84,7 @@ def create_customer_facing_agent():
     tools = [extract_travel_requirements, process_customer_request]
     
     prompt = ChatPromptTemplate.from_messages([
-        ("system", """You are a friendly travel assistant helping users plan their trips.
-        Your goal is to gather all necessary information about their travel plans.
-        Ask questions to learn about: destination, dates, budget, number of travelers,
-        accommodation preferences, activity interests, and transportation preferences.
-        Be conversational and helpful. Do not overwhelm the user with too many questions at once.
-        Only use the provided tools when you have gathered sufficient information."""),
+        ("system", CUSTOMER_FACING_AGENT_SYSTEM_PROMPT),
         MessagesPlaceholder(variable_name="chat_history"),
         ("user", "{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad"),

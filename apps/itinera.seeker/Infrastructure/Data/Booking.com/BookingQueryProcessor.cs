@@ -16,6 +16,7 @@ namespace Infrastructure.Data.Booking.com
 
         public BookingQueryProcessor(HttpClient httpClient)
         {
+            httpClient.Timeout = TimeSpan.FromSeconds(3000);
             _httpClient = httpClient;
         }
 

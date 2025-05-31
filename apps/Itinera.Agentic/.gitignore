@@ -1,5 +1,7 @@
 itinera.agentic-env
 .vscode
 .env
+agent-env
 *.pyc
 __pycache__
+venv

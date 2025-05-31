@@ -1,5 +1,5 @@
 from langgraph.prebuilt import create_react_agent
-from ..schema.prompts import QA_AGENT_SYSTEM_PROMPT
+from schema.prompts import QA_AGENT_SYSTEM_PROMPT
 
 # Analyst Agent
 def create_qa_agent(llm):

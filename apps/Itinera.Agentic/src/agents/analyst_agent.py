@@ -1,6 +1,6 @@
 
 from langgraph.prebuilt import create_react_agent
-from ..schema.prompts import ANALYST_AGENT_SYSTEM_PROMPT
+from schema.prompts import ANALYST_AGENT_SYSTEM_PROMPT
 
 # Analyst Agent
 def create_analyst_agent(llm):

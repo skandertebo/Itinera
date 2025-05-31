@@ -12,7 +12,7 @@ namespace Application.Services
         public List<HotelResult> Aggregate(List<List<HotelResult>> results)
         {
             // TODO: remove duplicates and sort based on rating
-            return results.SelectMany(r => r).ToList();
+            return results.SelectMany(r => r).OrderBy(hotel => hotel.Rating).Take(5).ToList();
         }
     }
 }
