@@ -47,60 +47,79 @@ model hotels {
 
 // Necessary for Next auth
 model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? // @db.Text
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? // @db.Text
+  access_token             String? // @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? // @db.Text
+  session_state            String?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refresh_token_expires_in Int?
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    country       String?   @db.VarChar(100)
-    currency      String?   @db.VarChar(10)
-    accounts      Account[]
-    sessions      Session[]
-    favorites     UserFavoriteHotels[]
+  id            String               @id @default(cuid())
+  name          String?
+  email         String?              @unique
+  emailVerified DateTime?
+  image         String?
+  country       String?              @db.VarChar(100)
+  currency      String?              @db.VarChar(10)
+  accounts      Account[]
+  sessions      Session[]
+  favorites     UserFavoriteHotels[]
+  conversation  conversation[]
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
 }
 
 model UserFavoriteHotels {
-    id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-    userId    String
-    hotelId   String   @db.Uuid
-    createdAt DateTime @default(now())
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    hotel     hotels   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String
+  hotelId   String   @db.Uuid
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hotel     hotels   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
 
-    @@unique([userId, hotelId])
+  @@unique([userId, hotelId])
+}
+
+model message {
+  id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content        String       @db.Text
+  sender         String       @db.VarChar(50) // 'user' or 'assistant'
+  createdAt      DateTime     @default(now())
+  conversationId String       @db.Uuid
+  conversation   conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}
+
+model conversation {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  message[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
