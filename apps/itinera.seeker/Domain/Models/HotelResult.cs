@@ -14,7 +14,8 @@ namespace Domain.Models
         public string Url { get; set; }
         public string Rating { get; set; }
         public string Description { get; set; }
-        public string ExtraDataStr { get; set; }        
+        public string ExtraDataStr { get; set; }
         public string PricingStr { get; set; }
+        public string ReviewsStr { get; set; }
     }
 }
