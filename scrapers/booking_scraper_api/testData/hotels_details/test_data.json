@@ -1,5 +1,186 @@
 [
     {
+        "name": "Hotel Les Ambassadeurs",
+        "url": "https://www.booking.com/hotel/dz/ambassadeurs-oran.en-gb.html?aid=304142&label=gen173nr-1FCAQoggJCIHNlYXJjaF9vcmFuLCBhbGdlcmlhLCBiZWFjaCB2aWV3SAlYBGjiAYgBAZgBCbgBGcgBDNgBAegBAfgBA4gCAagCA7gC_6niwQbAAgHSAiRlODExOWFiNC04OGVlLTQwMWItYTJlMS05MDIyNTM0MDA5NWHYAgXgAgE&ucfs=1&arphpl=1&checkin=2025-08-10&checkout=2025-09-30&group_adults=1&req_adults=1&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&nflt=price%3DGBP-10-200-1&srpvid=8aa078bfc3e501b1&srepoch=1748538630&all_sr_blocks=907643401_410576938_0_1_0_353161&highlighted_blocks=907643401_410576938_0_1_0_353161&matching_block_id=907643401_410576938_0_1_0_353161&sr_pri_blocks=907643401_410576938_0_1_0_353161_35700000&from=searchresults",
+        "rating": "8",
+        "description": "Comfortable Accommodations: Hotel Les Ambassadeurs in Oran offers air-conditioned rooms with private bathrooms, city views, and free toiletries. Each room includes a work desk, TV, and free WiFi.\n\nDining Experience: The family-friendly restaurant serves lunch and dinner in a traditional and modern ambience. Guests can enjoy a buffet breakfast and relax in the outdoor seating area.\n\nConvenient Facilities: The hotel features a lounge, lift, 24-hour front desk, concierge service, child-friendly buffet, coffee shop, and room service. Additional amenities include free on-site private parking, bicycle parking, and walking tours.\n\nPrime Location: Located 12 km from Ahmed Ben Bella Airport and 6 km from Oran Santa Cruz fortress, the hotel provides easy access to local attractions.",
+        "facilities": [
+            "Non-smoking rooms",
+            "Free parking",
+            "Room service",
+            "Free WiFi",
+            "Restaurant",
+            "Superb breakfast",
+            "Free cot available on request"
+        ],
+        "surroundings": {},
+        "detailed_ratings": {
+            "Staff": "8.8",
+            "Facilities": "7.5",
+            "Cleanliness": "8.7",
+            "Comfort": "8.5",
+            "Value for money": "8.4",
+            "Location": "8.8",
+            "Free WiFi": "9.2"
+        },
+        "pricing": [
+            {
+                "room_type": "Single Room",
+                "price": "\u00a32,003"
+            },
+            {
+                "room_type": "Double Room",
+                "price": "\u00a32,060"
+            },
+            {
+                "room_type": "Room type not found",
+                "price": "\u00a32,203"
+            },
+            {
+                "room_type": "Suite",
+                "price": "\u00a32,988"
+            },
+            {
+                "room_type": "Room type not found",
+                "price": "\u00a32,905"
+            }
+        ],
+        "reviews": [
+            {
+                "title": "Amazing value for money",
+                "negativeText": null,
+                "positiveText": "Spacious room and bathroom, all spotlessly clean, nice nostalgic decoration of the common areas. Great location - close to a tram stop, 5min walk to cable car, 10min to city centre and 15min to the train station. Friendly personnel"
+            },
+            {
+                "title": null,
+                "negativeText": null,
+                "positiveText": "Clean"
+            },
+            {
+                "title": "Frendliest people in Oran",
+                "negativeText": null,
+                "positiveText": "Everything was amazing, but the amability of the people working there was on a whole another level.\nI am 100% sure that this hotel has the frendliest staff you can find in all of Oran and probably in Algeria."
+            },
+            {
+                "title": "Nice hotel, very kind staff",
+                "negativeText": null,
+                "positiveText": "The hotel is located in city center , near all the major sights. The tram station to other parts of the city stops in front in the hotel."
+            },
+            {
+                "title": "Decent hotel with a few quirks",
+                "negativeText": "No desk in rooms. Shower took ages to heat up and never really became as warm as one might wish. Breakfast buffet was not very inspiring.\r\nOne important issue: all other hotels we stayed in in Algeria cheerfully allowed us to settle the bill with local currency in cash  during our stay. This hotel wanted payment in advance by credit card, which is fiddly (you need to pay via a special app as they can't charge a foreign card directly). It also means you have to pay the least advantageous exchange rate!",
+                "positiveText": "Quite posh lounge area, comfortable to sit in and read or work. Pretty good location, fairly central and a few minutes' walk from a tram stop. Rooms and beds basically comfortable."
+            },
+            {
+                "title": "Poor breakfast, no wifi in the room",
+                "negativeText": "WiFi didn\u2019t work in the room, the breakfast was very poor (just bread, croissants, no ham, no cheese, no eggs, no fruit).",
+                "positiveText": "Good location"
+            },
+            {
+                "title": null,
+                "negativeText": "There was no functioning internet on the second floor. I reported this several times and nothing was done about it. I even told them it was simply a case of resetting the modem in the corridor but still nothing was done.",
+                "positiveText": null
+            },
+            {
+                "title": "A good choice in central Oran",
+                "negativeText": "The hotel gives from Rue de l' Independence a neglected and abandoned impression, the former entrances are locked, access is via the parking lot on Blvd. Palestine. The lighting is not sufficient for reading. Wifi weak and unreliable. Occasional kitchen smells.",
+                "positiveText": "Good and centrally located mid-range hotel in Oran, beautiful spacious lobby, spacious room (301), marble floor, pretty and elegant decor, comfortable bed, refrigerator, large bathroom with shower, decent breakfast; good but unfortunately hardly frequented restaurant"
+            },
+            {
+                "title": "Good value for the money and the location + helpfull stuff makes it definitely worth it to stay ther",
+                "negativeText": "Missed some vegetables or fruits for breakfast, even though the omelette offered to us by the stuff was great. As in the whole country, if you don't speak Arabic or French, communication can be difficult.",
+                "positiveText": "The location of the hotel is great, you can get to different places of Oran just by walking. The stuff was very friendly and always willing to help."
+            },
+            {
+                "title": null,
+                "negativeText": "Mettre fait voler , avoir refus\u00e9 le pr\u00e9paiement avec la carte.a r\u00e9clamer du liquide demande sans arr\u00eat de rajouter des billets (je connaissais pas la valeur)ai donn\u00e9 19fois 2000 dinars+651 aux total 38651 dinars donc 264.70\u20acuro alors que je devais 2 nuit avec un total 126\u20ac il a multipli\u00e9 par 2 la facture.\nEn plus il a le culot de r\u00e9clamer encore de argent.\nAi la facture que ai obtenu difficilement car il refuse la carte bancaire des 2 nuits",
+                "positiveText": null
+            }
+        ]
+    },
+    {
+        "name": "LE PALME HOTEL",
+        "url": "https://www.booking.com/hotel/vn/kha-nguyen-home.en-gb.html?aid=2436555&sid=8164f98c2e682562a4e90c8e1cd1d222&age=1&all_sr_blocks=541506501_194565599_2_0_0&checkin=2025-08-10&checkout=2025-09-30&dest_id=12785910&dest_type=hotel&dist=0&group_adults=1&group_children=1&hapos=3&highlighted_blocks=541506501_194565599_2_0_0&hpos=3&matching_block_id=541506501_194565599_2_0_0&no_rooms=1&req_adults=1&req_age=1&req_children=1&room1=A%2C1&sb_price_type=total&sr_order=popularity&sr_pri_blocks=541506501_194565599_2_0_0__2470950000&srepoch=1748896704&srpvid=dd98911ae429025b&type=total&ucfs=1&",
+        "rating": "9.6",
+        "description": "Comfortable Living Space: Kha Nguyen Apartment 2-Near Hoi An Old town in Hoi An offers a one-bedroom apartment with a garden, terrace, balcony, and free WiFi. The apartment includes air-conditioning, a kitchenette, washing machine, and a work desk.\n\nModern Amenities: Guests enjoy a fully equipped kitchen, dining table, TV, and private entrance. Additional amenities include a hairdryer, electric kettle, refrigerator, and wardrobe.\n\nPrime Location: Located 31 km from Da Nang International Airport, the apartment is a short walk from Assembly Hall of Chaozhou Chinese Congregation and Hoi An Historic Museum. Nearby attractions include Japanese Covered Bridge and Marble Mountains.\n\nGuest Satisfaction: Highly rated for its friendly host, convenient location, and suitability for city trips.",
+        "facilities": [
+            "Free WiFi",
+            "Non-smoking rooms",
+            "Garden"
+        ],
+        "surroundings": {},
+        "detailed_ratings": {
+            "Staff": "9.9",
+            "Facilities": "9.6",
+            "Cleanliness": "9.7",
+            "Comfort": "9.5",
+            "Value for money": "9.9",
+            "Location": "9.8"
+        },
+        "pricing": [
+            {
+                "room_type": "One-Bedroom Apartment",
+                "price": "\u00a3703"
+            },
+            {
+                "room_type": "Room type not found",
+                "price": "\u00a3828"
+            }
+        ],
+        "reviews": [
+            {
+                "title": "Incredible stay",
+                "negativeText": null,
+                "positiveText": "Wow, what an incredible stay! Right across the bridge in a beautiful quiet area yet so close to old town. Facilities were perfect for what we were after and we loved having a washing machine and kitchen area to make it feel more like home. \nIt was so easy to book tours and pickups through Ms Vy. She provided amazing local recommendations and the most incredible tailor! Highly recommend this place. Can\u2019t wait to come back."
+            },
+            {
+                "title": "Very nice place to stay",
+                "negativeText": "no issues really.",
+                "positiveText": "One of the best accomodation we had in Vietnam. \r\nThe host is very nice and helping with everything. So we really appreciete all the help with tailors, with motorbike service, with all advices etc. Really good!\r\nThen the room is very nice, you are just few steps from Hoi An old town, but you are in the calm street so no problem with noise. In fact it was so great!! And when you need to go to old town, you just go 0,5 km?\r\nEquipment all nice, working."
+            },
+            {
+                "title": "Almost like home",
+                "negativeText": null,
+                "positiveText": "If you need to feel like home during your travels, this us the right place for you. You have whole studio with little kitchen and bathroom. There is a washing machine for free, also possibility of having bicycles for free. \nMrs Vy is amazing, super welcoming, she even made a dinner for us on the first day. \nThe location is just across the bridge from Old town but in quiet place (approx 8 minutes walking)."
+            },
+            {
+                "title": null,
+                "negativeText": null,
+                "positiveText": "This place was exactly like the photos. Lovely place and near the old town, only a short walk to the river."
+            },
+            {
+                "title": null,
+                "negativeText": null,
+                "positiveText": "Spacious studio appartment w. terrace, very good aircon, free bicyles  in a\u00a0quiet neighborhood but very close to old town. Vy was a great host, very responsive and flexible as regards to check-out time. She organized airport/station transfer which was great and actually cheaper than Grab taxi. Would definitely stay there again."
+            },
+            {
+                "title": "We loved our stay at Vy\u201ds place, Vy was brilliant and helped us enormously we would highly recommend a stay here",
+                "negativeText": "There was nothing not to like about this property",
+                "positiveText": "Great location, great host and beautiful large clean apartment"
+            },
+            {
+                "title": "Great welcome ,lovely host, marvellous place to stay",
+                "negativeText": "End of rainy season,November in Hoi An,and parts of town flooded,ankle deep in places.But fully expected for time of year.",
+                "positiveText": "Wonderful location ,great host ,facilities excellent.will recommend to friends and family and hope to return."
+            },
+            {
+                "title": "Would recommend to stay. I would come back here",
+                "negativeText": "Nothing",
+                "positiveText": "Owner was very kind and lovely. Given water and watermelon upon arrival\n\nThey have a really friendly dog \n\nVery clean\n\nGreat location, walking distance to centre \n\nBeautiful accomodating and sparkling clean\n\nThought host, owner had stocked the place with water, soft drinks and beer which were not marked up, they were convenience store price"
+            },
+            {
+                "title": null,
+                "negativeText": null,
+                "positiveText": "This property is incredible! You must stay here \u263a\ufe0f great location, amazing host and everything you could need"
+            },
+            {
+                "title": "PLEASE READ BEFORE BOOKING A STAY IN HOI AN",
+                "negativeText": null,
+                "positiveText": "This is the most amazing place to stay, Vy the owner was contactable via WhatsApp to arrange time for key collection. I arrived here after a MASSIVE day and was so exhausted, Vy greeted me with a cold water and fresh pineapple while she ran me through how to use the keys and the general information of the property. She noticed I was very tired and arranged to get me a Bahn Mi delivered for dinner, she is so friendly and will help you with anything you need. Please note that this apartment is on the same property as their family home and to be respectful. I\u2019m going to recommend this place to all my friends it\u2019s a great location walking distance to most hot spots. If you don\u2019t feel like walking Vy has pushbikes free for you to use or she can organise a scooter for you. This place is 11/10 Vy goes above and beyond for you. Definitely recommend!!"
+            }
+        ]
+    },
+    {
         "name": "Calypso Home Oran",
         "url": "https://www.booking.com/hotel/dz/calypso-home.en-gb.html?aid=304142&label=gen173nr-1FCAQoggJCIHNlYXJjaF9vcmFuLCBhbGdlcmlhLCBiZWFjaCB2aWV3SAlYBGjiAYgBAZgBCbgBGcgBDNgBAegBAfgBA4gCAagCA7gC_6niwQbAAgHSAiRlODExOWFiNC04OGVlLTQwMWItYTJlMS05MDIyNTM0MDA5NWHYAgXgAgE&ucfs=1&arphpl=1&checkin=2025-08-10&checkout=2025-09-30&group_adults=1&req_adults=1&no_rooms=1&group_children=0&req_children=0&hpos=4&hapos=4&sr_order=popularity&nflt=price%3DGBP-10-200-1&srpvid=8aa078bfc3e501b1&srepoch=1748538630&all_sr_blocks=341974001_409052767_2_0_0&highlighted_blocks=341974001_409052767_2_0_0&matching_block_id=341974001_409052767_2_0_0&sr_pri_blocks=341974001_409052767_2_0_0__61020000&from=searchresults",
         "rating": "8.6",
@@ -17,115 +198,90 @@
         ],
         "surroundings": {},
         "detailed_ratings": {
-            "Staff": "9.2",
+            "Staff": "9.3",
             "Facilities": "8.8",
             "Cleanliness": "9.0",
             "Comfort": "8.8",
             "Value for money": "8.6",
-            "Location": "8.5",
+            "Location": "8.6",
             "Free WiFi": "8.3"
         },
         "pricing": [
             {
                 "room_type": "Deluxe Double Room with Balcony  and Partial Sea View",
-                "price": "\u00a33,425"
+                "price": "\u00a33,424"
             },
             {
                 "room_type": "Room type not found",
-                "price": "\u00a33,729"
+                "price": "\u00a33,728"
+            },
+            {
+                "room_type": "Twin Room with Garden View",
+                "price": "\u00a32,798"
+            },
+            {
+                "room_type": "Room type not found",
+                "price": "\u00a33,109"
+            },
+            {
+                "room_type": "Room type not found",
+                "price": "\u00a33,419"
             },
             {
                 "room_type": "Double or Twin Room with City View",
-                "price": "\u00a33,682"
+                "price": "\u00a33,681"
             }
-        ]
-    },
-    {
-        "name": "Hotel Les Ambassadeurs",
-        "url": "https://www.booking.com/hotel/dz/ambassadeurs-oran.en-gb.html?aid=304142&label=gen173nr-1FCAQoggJCIHNlYXJjaF9vcmFuLCBhbGdlcmlhLCBiZWFjaCB2aWV3SAlYBGjiAYgBAZgBCbgBGcgBDNgBAegBAfgBA4gCAagCA7gC_6niwQbAAgHSAiRlODExOWFiNC04OGVlLTQwMWItYTJlMS05MDIyNTM0MDA5NWHYAgXgAgE&ucfs=1&arphpl=1&checkin=2025-08-10&checkout=2025-09-30&group_adults=1&req_adults=1&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&nflt=price%3DGBP-10-200-1&srpvid=8aa078bfc3e501b1&srepoch=1748538630&all_sr_blocks=907643401_410576938_0_1_0_353161&highlighted_blocks=907643401_410576938_0_1_0_353161&matching_block_id=907643401_410576938_0_1_0_353161&sr_pri_blocks=907643401_410576938_0_1_0_353161_35700000&from=searchresults",
-        "rating": "8",
-        "description": "Comfortable Accommodations: Hotel Les Ambassadeurs in Oran offers air-conditioned rooms with private bathrooms, city views, and free toiletries. Each room includes a work desk, TV, and free WiFi.\n\nDining Experience: The family-friendly restaurant serves lunch and dinner in a traditional and modern ambience. Guests can enjoy a buffet breakfast and relax in the outdoor seating area.\n\nConvenient Facilities: The hotel features a lounge, lift, 24-hour front desk, concierge service, child-friendly buffet, coffee shop, and room service. Additional amenities include free on-site private parking, bicycle parking, and walking tours.\n\nPrime Location: Located 12 km from Ahmed Ben Bella Airport and 6 km from Oran Santa Cruz fortress, the hotel provides easy access to local attractions.",
-        "facilities": [
-            "Non-smoking rooms",
-            "Free parking",
-            "Room service",
-            "Free WiFi",
-            "Restaurant",
-            "Superb breakfast",
-            "Free cot available on request"
         ],
-        "surroundings": {},
-        "detailed_ratings": {
-            "Staff": "8.7",
-            "Facilities": "7.4",
-            "Cleanliness": "8.6",
-            "Comfort": "8.4",
-            "Value for money": "8.3",
-            "Location": "8.8",
-            "Free WiFi": "9.2"
-        },
-        "pricing": [
+        "reviews": [
             {
-                "room_type": "Single Room",
-                "price": "\u00a32,004"
+                "title": null,
+                "negativeText": null,
+                "positiveText": "I didn't stayed at this place and thanks God I didn't someone called me from this shitt hotel and said that I have to cancel my stayed because they have family waiting and he was so rude with me"
             },
             {
-                "room_type": "Double Room",
-                "price": "\u00a32,061"
+                "title": null,
+                "negativeText": null,
+                "positiveText": "Very good staff"
             },
             {
-                "room_type": "Room type not found",
-                "price": "\u00a32,204"
+                "title": "Great stay with nice and beautiful peoples",
+                "negativeText": null,
+                "positiveText": "Staff , the Was there ( I think her name Turki) was very nice , really very helping"
             },
             {
-                "room_type": "Suite",
-                "price": "\u00a32,988"
+                "title": null,
+                "negativeText": "None",
+                "positiveText": "I fully recommend the place to all travelers going to Oran. Dunia is friendly and available to assist visitors anytime to make their stay unforgettable."
             },
             {
-                "room_type": "Room type not found",
-                "price": "\u00a32,905"
-            }
-        ]
-    },
-    {
-        "name": "LE PALME HOTEL",
-        "url": "https://www.booking.com/hotel/dz/le-palme.en-gb.html?aid=304142&label=gen173nr-1FCAQoggJCIHNlYXJjaF9vcmFuLCBhbGdlcmlhLCBiZWFjaCB2aWV3SAlYBGjiAYgBAZgBCbgBGcgBDNgBAegBAfgBA4gCAagCA7gC_6niwQbAAgHSAiRlODExOWFiNC04OGVlLTQwMWItYTJlMS05MDIyNTM0MDA5NWHYAgXgAgE&ucfs=1&arphpl=1&checkin=2025-08-10&checkout=2025-09-30&group_adults=1&req_adults=1&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&nflt=price%3DGBP-10-200-1&srpvid=8aa078bfc3e501b1&srepoch=1748538630&all_sr_blocks=1075183002_380104285_1_1_0&highlighted_blocks=1075183002_380104285_1_1_0&matching_block_id=1075183002_380104285_1_1_0&sr_pri_blocks=1075183002_380104285_1_1_0__71880000&from=searchresults",
-        "rating": "8.8",
-        "description": "Comfortable Accommodations: Rooms feature air-conditioning, balconies with mountain or city views, private bathrooms, and modern amenities including free WiFi, minibars, and flat-screen TVs.\n\nDining and Leisure: Guests can enjoy a terrace, restaurant, and coffee shop. Additional facilities include a child-friendly buffet, room service, and a 24-hour front desk.\n\nConvenient Location: Located in Oran, the hotel is 10 km from Ahmed Ben Bella Airport and 7 km from Oran Santa Cruz fortress. Free on-site private parking is available.\n\nGuest Satisfaction: Highly rated for its attentive staff, room cleanliness, and breakfast provided by the property.",
-        "facilities": [
-            "Airport shuttle (free)",
-            "Non-smoking rooms",
-            "Facilities for disabled guests",
-            "Free parking",
-            "Room service",
-            "Free WiFi",
-            "Family rooms",
-            "Restaurant",
-            "Tea/coffee maker in all rooms",
-            "Very good breakfast"
-        ],
-        "surroundings": {},
-        "detailed_ratings": {
-            "Staff": "9.4",
-            "Facilities": "9.0",
-            "Cleanliness": "9.3",
-            "Comfort": "9.2",
-            "Value for money": "8.9",
-            "Location": "8.6",
-            "Free WiFi": "7.3"
-        },
-        "pricing": [
-            {
-                "room_type": "Twin Room",
-                "price": "\u00a34,034"
+                "title": null,
+                "negativeText": null,
+                "positiveText": "Everything alright"
             },
             {
-                "room_type": "Room type not found",
-                "price": "\u00a34,178"
+                "title": null,
+                "negativeText": "nothing",
+                "positiveText": "everything"
             },
             {
-                "room_type": "Suite",
-                "price": "\u00a36,240"
+                "title": "I will staying there again.",
+                "negativeText": null,
+                "positiveText": "good service, decoration better than most of hotels in ain truk. and good price."
+            },
+            {
+                "title": "Friendly staff and good sized room.",
+                "negativeText": null,
+                "positiveText": "All staff members were very friendly and helpful."
+            },
+            {
+                "title": null,
+                "negativeText": "service at reception",
+                "positiveText": "location wasn\u2019t that bad"
+            },
+            {
+                "title": "Moche",
+                "negativeText": "Le service",
+                "positiveText": "Il n\u2019y a pas eu de petit dejeuner"
             }
         ]
     },
@@ -159,51 +315,103 @@
         "pricing": [
             {
                 "room_type": "Twin Room",
-                "price": "\u00a38,480"
+                "price": "\u00a38,477"
             },
             {
                 "room_type": "Room type not found",
-                "price": "\u00a39,453"
+                "price": "\u00a39,450"
             },
             {
                 "room_type": "Standard Double Room",
-                "price": "\u00a38,686"
+                "price": "\u00a38,684"
             },
             {
                 "room_type": "Room type not found",
-                "price": "\u00a39,197"
+                "price": "\u00a39,194"
             },
             {
                 "room_type": "Room type not found",
-                "price": "\u00a39,660"
+                "price": "\u00a39,657"
             },
             {
                 "room_type": "Comfort Triple Room",
-                "price": "\u00a39,976"
+                "price": "\u00a39,973"
             },
             {
                 "room_type": "Room type not found",
-                "price": "\u00a310,463"
+                "price": "\u00a310,459"
             },
             {
                 "room_type": "Room type not found",
-                "price": "\u00a310,949"
+                "price": "\u00a310,946"
             },
             {
                 "room_type": "Deluxe Junior Suite",
-                "price": "\u00a314,112"
+                "price": "\u00a314,108"
             },
             {
                 "room_type": "Deluxe Family Suite",
-                "price": "\u00a314,161"
+                "price": "\u00a314,156"
             },
             {
                 "room_type": "Room type not found",
-                "price": "\u00a314,648"
+                "price": "\u00a314,643"
             },
             {
                 "room_type": "Presidential Suite",
-                "price": "\u00a397,326"
+                "price": "\u00a397,295"
+            }
+        ],
+        "reviews": [
+            {
+                "title": "Much hiking, cause the accommodation was so high.",
+                "negativeText": "I did not know that the property is so high in the mountains, I couldn't find any information about it!",
+                "positiveText": null
+            },
+            {
+                "title": "Un panorama mozzafiato",
+                "negativeText": "La lavatrice non funzionava, ma il proprietario ci ha detto che la prossima settimana installer\u00e0 quella nuova",
+                "positiveText": "La terrazza \u00e8 un paradiso. Una vista mozzafiato. Vale il viaggio."
+            },
+            {
+                "title": "Paradiso nel paradiso",
+                "negativeText": "Niente. Sarebbe opportuno cambiare la lavatrice, perch\u00e9 la centrifuga a volte lascia i vestiti fradici e soprattutto fa un baccano infernale \ud83e\udd23, ma basta organizzarsi e accenderla subito prima di andare in spiaggia \ud83d\ude09",
+                "positiveText": "Tutto. Il paesaggio mozzafiato su Lipari e Vulcano che potevamo goderci mentre mangiavamo ed in qualsiasi altro momento, la pace e riservatezza totali,  la comodit\u00e0 di tante piccole cose (l'amaca e le sdraio, la doccia anche all'esterno, la stanza da letto ampia e fresca). Il fatto che non mancasse niente. La strada per raggiungere la casa \u00e8 un po' tortuosa ed a tratti ripida, e richiede uno scooter o un'auto a benzina, ma \u00e8 talmente BELLA che dopo due giorni in cui ci siamo abituati \u00e8 diventata un valore aggiunto della casa. Alfredo \u00e8 stato gentilissimo e disponibile per ogni nostra esigenza."
+            },
+            {
+                "title": null,
+                "negativeText": null,
+                "positiveText": "Panorama,"
+            },
+            {
+                "title": "Splendida villetta nella pace della campagna",
+                "negativeText": "I cali di tensione nelle luci del bagno\nConnessione wifi a bassa velocit\u00e0\nLa strada difficoltosa per raggiungerla",
+                "positiveText": "Vista panoramica\nSilenziosit\u00e0\nPulizia\nAttrezzatura della cucina completa\nLavatrice in loco\nAmaca e sdraio per godere del panorama\nOmbrellone per gli ospiti per la spiaggia"
+            },
+            {
+                "title": "Casa dolce casa \ud83c\udfe1",
+                "negativeText": null,
+                "positiveText": "Una bellissima casetta, curata nei dettagli, non manca di nulla. Intima e tranquilla Gestore gentilissimo. Posizione strategica per visitare l'isola"
+            },
+            {
+                "title": null,
+                "negativeText": "La struttura \u00e8 in una contrada a circa 300mt d'altitudine e fiancheggia quello che era il vulcano dell'isola. L'ultimo tratto di strada si presenta in parte sterrato, ripido e stretto. Sconsigliato a chi non \u00e8 un abile guidatore.",
+                "positiveText": "Terrazzino con vista superlativo, privacy ed host cordiale e disponibile"
+            },
+            {
+                "title": null,
+                "negativeText": null,
+                "positiveText": null
+            },
+            {
+                "title": null,
+                "negativeText": null,
+                "positiveText": null
+            },
+            {
+                "title": null,
+                "negativeText": null,
+                "positiveText": null
             }
         ]
     }
