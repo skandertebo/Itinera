@@ -1,5 +1,5 @@
-from core.hotel_details_scraper_thread import HotelDetailsThreadScraper
-from core.utils import read_file, save_file
+from hotel_details_scraper_thread import HotelDetailsThreadScraper
+from utils import read_file, save_file
 
 
 class HotelDetailsScraper():
