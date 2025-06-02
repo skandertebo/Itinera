@@ -145,41 +145,31 @@ class HotelDetailsThreadScraper(threading.Thread):
         ufi = None
         csrf_token = None
         
-        # Search for script tag containing hotel data (assuming 'var b = {...}')
-        for script in soup.find_all('script', type='text/javascript'):
-            if script.string and 'var b =' in script.string:
-                match = re.search(r'var b = ({.*?});', script.string, re.DOTALL)
-                if match:
-                    b_str = match.group(1)
-                    try:
-                        # Convert JS object to JSON by replacing single quotes
-                        b_data = json.loads(b_str.replace("'", '"'))
-                        hotel_id = b_data.get('hotel_id')
-                        ufi = b_data.get('ufi')
-                    except json.JSONDecodeError:
-                        # Fallback to regex if JSON parsing fails
-                        hotel_match = re.search(r"hotel_id['\"]?\s*:\s*['\"]?(\d+)['\"]?", script.string)
-                        ufi_match = re.search(r"ufi['\"]?\s*:\s*['\"]?-?\d+['\"]?", script.string)
-                        if hotel_match:
-                            hotel_id = hotel_match.group(1)
-                        if ufi_match:
-                            ufi = ufi_match.group(0).split(':')[-1].strip().replace('"', '').replace("'", '')
-                    break
+        # Extract all scripts
+        scripts = soup.find_all('script', type='text/javascript')
+        for script in scripts:
+            if script.string and 'window.utag_data' in script.string:
+                script_text = script.string
+                break
+        else:
+            raise ValueError("Could not find script with window.utag_data")
         
+        # Extract hotel_id and ufi using regex
+        hotel_id_match = re.search(r"hotel_id\s*:\s*['\"]?(\d+)['\"]?", script_text)
+        ufi_match = re.search(r"dest_ufi\s*:\s*['\"]?(-?\d+)['\"]?", script_text)
+        cc_match = re.search(r"dest_cc\s*:\s*['\"]([a-zA-Z]{2})['\"]", script_text)
+        
+        if not hotel_id_match or not ufi_match or not cc_match:
+            raise ValueError("Could not extract hotel_id, ufi, or country_code from script")
+        
+        hotel_id = int(hotel_id_match.group(1))  # e.g., 5415065
+        ufi = int(ufi_match.group(1))            # e.g., -3715584
+        country_code = cc_match.group(1)    
         # Extract CSRF token from meta tag (assumed name, adjust if different)
         csrf_meta = soup.find('meta', {'name': 'csrf-token'})
         csrf_token = csrf_meta['content'] if csrf_meta else None
         
-        # Fallback: if hotel_id not found, derive from all_sr_blocks
-        if not hotel_id:
-            query_params = parse_qs(urlparse(hotel_page_url).query)
-            all_sr_blocks = query_params.get('all_sr_blocks', [''])[0]
-            if all_sr_blocks:
-                block_id = all_sr_blocks.split('_')[0]
-                hotel_id = block_id[:7]  # Assuming first 7 digits as hotel ID
         
-        if not hotel_id and not ufi:
-            raise ValueError("Failed to extract hotel_id or ufi from hotel page")
         if not csrf_token:
             # CSRF token might be critical; proceed and adjust if request fails
             csrf_token = ''
@@ -188,8 +178,8 @@ class HotelDetailsThreadScraper(threading.Thread):
         variables = {
             "shouldShowReviewListPhotoAltText": True,
             "input": {
-                "hotelId": int(hotel_id),
-                "ufi": 20003299,
+                "hotelId": hotel_id,
+                "ufi": ufi,
                 "hotelCountryCode": country_code,
                 "sorter": "MOST_RELEVANT",
                 "filters": {"text": ""},
@@ -198,7 +188,7 @@ class HotelDetailsThreadScraper(threading.Thread):
                 "hotelScore": 0,  # Optional, set to 0 if unknown
                 "upsortReviewUrl": "",
                 "searchFeatures": {
-                    "destId": 20003299,
+                    "destId": ufi,
                     "destType": "CITY"
                 }
             }
