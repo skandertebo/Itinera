@@ -1,22 +1,22 @@
 from typing import Dict
+
 from dotenv import load_dotenv
-
-from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.agents import AgentExecutor, create_openai_tools_agent
-from langchain.tools import tool
 from langchain.memory import ConversationBufferMemory
-from schema.classes import TravelRequirements, BookingResult, Destination, Travelers, Accommodation, Budget
+from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain.tools import tool
+from langchain_openai import ChatOpenAI
+from schema.classes import (Accommodation, BookingResult, Budget, Destination,
+                            Travelers, TravelRequirements)
 from schema.prompts import CUSTOMER_FACING_AGENT_SYSTEM_PROMPT
-
-from travel_agency import consult_travel_agency
 
 # Load environment variables
 load_dotenv()
 
+from travel_agency import consult_travel_agency
 
 # Initialize LLM
-llm = ChatOpenAI(temperature=0.7, model="gpt-4o", api_key=OPENAI_API_KEY)
+llm = ChatOpenAI(temperature=0.7, model="gpt-4o")
 
 # Tools for Customer-Facing Agent
 @tool
@@ -80,52 +80,21 @@ def process_customer_request(customerRequestStr: str) -> str:
     return travel_agency_result
 
 # Customer-Facing Agent
-def create_customer_facing_agent():
+def create_customer_facing_agent(messages):
     tools = [extract_travel_requirements, process_customer_request]
-    
+     
     prompt = ChatPromptTemplate.from_messages([
         ("system", CUSTOMER_FACING_AGENT_SYSTEM_PROMPT),
-        MessagesPlaceholder(variable_name="chat_history"),
+        *[(msg["sender"], msg["content"]) for msg in messages],
         ("user", "{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad"),
     ])
     
-    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
     agent = create_openai_tools_agent(llm, tools, prompt)
     
     return AgentExecutor(
         agent=agent,
         tools=tools,
-        memory=memory,
         verbose=True,
         max_iterations=3
     )
-# Main application
-def travel_recommendation_app():
-    print("🌴 Welcome to AI Travel Planner! 🌴")
-    print("I'm your travel assistant. Let me help you plan your next trip.")
-    print("Type 'exit' at any time to quit.\n")
-    
-    # Create agents
-    customer_agent = create_customer_facing_agent()
-    
-    travel_requirements = {}
-    booking_complete = False
-    
-    while not booking_complete:
-        user_input = input("\nYou: ")
-        
-        if user_input.lower() == 'exit':
-            print("\nThank you for using AI Travel Planner. Have a great day!")
-            break
-        
-        # Step 1: Customer agent interacts with user
-        try:
-            customer_response = customer_agent.invoke({"input": user_input})
-            print(f"\nTravel Assistant: {customer_response['output']}")
-        except Exception as e:
-            print(f"\nTravel Assistant: I'm sorry, I encountered an error: {str(e)}")
-            print("Let's continue our conversation about your travel plans.")
-
-if __name__ == "__main__":
-    travel_recommendation_app()

@@ -181,6 +181,7 @@
                 // Stream bot message
                 removeTypingIndicator();
                 botMessageBuffer += event.data;
+                console.log(event.data)
                 appendMessage(event.data, 'bot');
             }
         };

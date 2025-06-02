@@ -33,7 +33,7 @@ namespace Infrastructure.Data.Booking.com
 
             // Send the POST
             // TODO: put in env vars
-            var response = await _httpClient.PostAsync("http://localhost:5000/scrape", content);
+            var response = await _httpClient.PostAsync("http://localhost:5001/scrape", content);
 
             // Throw if not successful
             response.EnsureSuccessStatusCode();
