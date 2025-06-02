@@ -16,6 +16,7 @@ export function NavTop() {
     { name: "Home", href: "/" },
     { name: "Hotels", href: "/hotels" },
     { name: "Favorites", href: "/favorites" },
+    { name: "AI Chat", href: "/chat" },
   ];
 
   return (
