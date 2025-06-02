@@ -15,11 +15,19 @@ namespace Domain.Models.DTOs
         public Dictionary<string, object> Surroundings { get; set; } = new(); // Empty in sample
         public Dictionary<string, string> Detailed_Ratings { get; set; } = new();
         public List<Pricing>? Pricing { get; set; }
+        public List<BookingReview>? Reviews { get; set; }
     }
 
     public class Pricing
     {
         public string Room_Type { get; set; }
         public string Price { get; set; }
+    }
+
+    public class BookingReview
+    {
+        public string Title { get; set; }
+        public string NegativeText { get; set; }
+        public string PositiveText { get; set; }
     }
 }

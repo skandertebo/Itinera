@@ -30,7 +30,8 @@ namespace Infrastructure.Data.Booking.com
                     booking.Surroundings,
                     booking.Detailed_Ratings
                 }),
-                PricingStr = JsonSerializer.Serialize(booking.Pricing)
+                PricingStr = JsonSerializer.Serialize(booking.Pricing),
+                ReviewsStr = JsonSerializer.Serialize(booking.Reviews)
             };
         }
     }
