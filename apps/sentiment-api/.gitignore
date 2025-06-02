@@ -34,3 +34,11 @@ wheels/
 # OS
 .DS_Store
 Thumbs.db 
+Hotel_Reviews.csv
+
+# Model files
+fine_tuned_model/
+*.bin
+*.pt
+*.pth
+*.ckpt
